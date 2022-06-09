@@ -16,6 +16,8 @@ namespace cse210_04.Game.Directing
         private KeyboardService keyboardService = null;
         private VideoService videoService = null;
 
+        private int y = 1;
+
         /// <summary>
         /// Constructs a new instance of Director using the given KeyboardService and VideoService.
         /// </summary>
@@ -74,8 +76,8 @@ namespace cse210_04.Game.Directing
                 if (robot.GetPosition().Equals(actor.GetPosition()))
                 {
                     Artifact artifact = (Artifact) actor;
-                    string message = artifact.GetMessage();
-                    banner.SetText(message);
+                    //string message = artifact.GetMessage();
+                    //banner.SetText(message);
                 }
             } 
         }

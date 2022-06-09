@@ -17,22 +17,21 @@ namespace cse210_04.Game.Casting
         {
         }
 
-        /// <summary>
-        /// Gets the artifact's message.
-        /// </summary>
-        /// <returns>The message.</returns>
-        public string GetMessage()
-        {
-            return message;
-        }
+        public int type { get; set; }
 
-        /// <summary>
-        /// Sets the artifact's message to the given value.
-        /// </summary>
-        /// <param name="message">The given message.</param>
-        public void SetMessage(string message)
+        public int GetScore()
         {
-            this.message = message;
+            int score = 0;
+            if (type == 0)
+            {
+                score = -1; 
+            }
+            else if (type == 1)
+            {
+                score = 1;
+            }
+
+            return score;
         }
     }
 }
