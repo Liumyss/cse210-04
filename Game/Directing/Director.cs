@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using cse210_04.Game.Casting;
 using cse210_04.Game.Services;
@@ -16,7 +17,7 @@ namespace cse210_04.Game.Directing
         private KeyboardService keyboardService = null;
         private VideoService videoService = null;
 
-        private int y = 1;
+       public int score = 0;
 
         /// <summary>
         /// Constructs a new instance of Director using the given KeyboardService and VideoService.
@@ -51,6 +52,17 @@ namespace cse210_04.Game.Directing
         /// <param name="cast">The given cast.</param>
         private void GetInputs(Cast cast)
         {
+            List<Actor> artifacts = cast.GetActors("artifacts");
+
+            foreach (Actor actor in artifacts) 
+            {
+                Point artifactvelocity = keyboardService.MoveArtifact();
+                actor.SetVelocity(artifactvelocity);
+                int maxX = videoService.GetWidth();
+                int maxY = videoService.GetHeight();
+                actor.MoveNext(maxX, maxY);
+            }
+
             Actor robot = cast.GetFirstActor("robot");
             Point velocity = keyboardService.GetDirection();
             robot.SetVelocity(velocity);     
@@ -66,18 +78,28 @@ namespace cse210_04.Game.Directing
             Actor robot = cast.GetFirstActor("robot");
             List<Actor> artifacts = cast.GetActors("artifacts");
 
-            banner.SetText("");
+            banner.SetText($"Score: {score.ToString()}");
             int maxX = videoService.GetWidth();
             int maxY = videoService.GetHeight();
             robot.MoveNext(maxX, maxY);
+
+            Random random = new Random();
 
             foreach (Actor actor in artifacts)
             {
                 if (robot.GetPosition().Equals(actor.GetPosition()))
                 {
                     Artifact artifact = (Artifact) actor;
-                    //string message = artifact.GetMessage();
-                    //banner.SetText(message);
+                    score += artifact.GetScore();
+                    banner.SetText($"Score: {score.ToString()}");
+
+
+                    int x = random.Next(1, 60);
+                    int y = 0;
+                    Point position = new Point(x, y);
+                    position = position.Scale(15);
+
+                    artifact.SetPosition(position);
                 }
             } 
         }

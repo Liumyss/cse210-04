@@ -58,5 +58,20 @@ namespace cse210_04.Game.Services
 
             return direction;
         }
+
+         /// <summary>
+        /// Keeps Artifacts in motion.
+        /// </summary>
+        /// <returns>The direction as an instance of Point.</returns>
+        public Point MoveArtifact()
+        {
+            int dx = 0;
+            int dy = 1;
+
+            Point direction = new Point(dx, dy);
+            direction = direction.Scale(cellSize);
+
+            return direction;
+        }
     }
 }

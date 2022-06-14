@@ -25,8 +25,6 @@ namespace cse210_04
         private static string DATA_PATH = "Data/messages.txt";
         private static Color WHITE = new Color(255, 255, 255);
         private static int DEFAULT_ARTIFACTS = 40;
-        private static int ASTERIX_CHAR = 42;
-        private static int SQUARE_CHAR = 219;
 
 
         /// <summary>
@@ -62,20 +60,10 @@ namespace cse210_04
             for (int i = 0; i < DEFAULT_ARTIFACTS; i++)
             {
 
-                int type = random.Next(0, 2);
-                string text = "";
-
-                if (type == 0)
-                {
-                    text = ((char)SQUARE_CHAR).ToString();
-                }
-                else if (type == 1)
-                {
-                    text = ((char)ASTERIX_CHAR).ToString();
-                }
+                string text = ((char)(42)).ToString();
 
                 int x = random.Next(1, COLS);
-                int y = 0;
+                int y = random.Next(1, ROWS);
 
                 Point position = new Point(x, y);
                 position = position.Scale(CELL_SIZE);
@@ -90,7 +78,32 @@ namespace cse210_04
                 artifact.SetFontSize(FONT_SIZE);
                 artifact.SetColor(color);
                 artifact.SetPosition(position);
-                //artifact.SetMessage(message);
+                artifact.SetScore(1);
+                cast.AddActor("artifacts", artifact);   
+            }
+
+            for (int i = 0; i < DEFAULT_ARTIFACTS; i++)
+            {
+
+                string text = ((char)(111)).ToString();
+
+                int x = random.Next(1, COLS);
+                int y = random.Next(1, ROWS);
+
+                Point position = new Point(x, y);
+                position = position.Scale(CELL_SIZE);
+
+                int r = random.Next(0, 256);
+                int g = random.Next(0, 256);
+                int b = random.Next(0, 256);
+                Color color = new Color(r, g, b);
+
+                Artifact artifact = new Artifact();
+                artifact.SetText(text);
+                artifact.SetFontSize(FONT_SIZE);
+                artifact.SetColor(color);
+                artifact.SetPosition(position);
+                artifact.SetScore(-1);
                 cast.AddActor("artifacts", artifact);   
             }
 
